@@ -9,18 +9,18 @@ def scanline_convert(polygons, i, screen, zbuffer ):
     a=polygons[i][1]
     b=polygons[i+1][1]
     c=polygons[i+2][1]
-    botVal=min(a,b,c)
+    bottomVal=min(a,b,c)
     topVal=max(a,b,c)
-    if botVal==a:
-        bot=polygons[i]
+    if bottomVal==a:
+        bottom=polygons[i]
         if topVal==b:
             top=polygons[i+1]
             mid=polygons[i+2]
         else:
             top=polygons[i+2]
             mid=polygons[i+1]
-    elif botVal==b:
-        bot=polygons[i+1]
+    elif bottomVal==b:
+        bottom=polygons[i+1]
         if topVal==a:
             top=polygons[i]
             mid=polygons[i+2]
@@ -28,25 +28,25 @@ def scanline_convert(polygons, i, screen, zbuffer ):
             top=polygons[i+2]
             mid=polygons[i]
     else:
-        bot=polygons[i+2]
+        bottom=polygons[i+2]
         if topVal==a:
             top=polygons[i]
             mid=polygons[i+1]
         else:
             top=polygons[i+1]
             mid=polygons[i]
-    x0,x1=bot[0],bot[0]
-    z0,z1=bot[2],bot[2]
+    x0,x1=bottom[0],bottom[0]
+    z0,z1=bottom[2],bottom[2]
     x2=mid[0]
     z2=mid[2]
 
-    y=round(bot[1])
-    A=(top[0]-bot[0])/(top[1]-bot[1])
-    B=(top[2]-bot[2])/(top[1]-bot[1])
+    y=round(bottom[1])
+    A=(top[0]-bottom[0])/(top[1]-bottom[1])
+    B=(top[2]-bottom[2])/(top[1]-bottom[1])
     while y<round(mid[1]):
         draw_line(x0, y, z0, x1, y, z1, screen, zbuffer, color)
-        C=(mid[0]-bot[0])/(mid[1]-bot[1])
-        D=(mid[2]-bot[2])/(top[1]-bot[1])
+        C=(mid[0]-bottom[0])/(mid[1]-bottom[1])
+        D=(mid[2]-bottom[2])/(top[1]-bottom[1])
         x0+=A
         x1+=C
         z0+=B
@@ -109,7 +109,7 @@ def add_box( polygons, x, y, z, width, height, depth ):
     #top
     add_polygon(polygons, x, y, z1, x1, y, z, x1, y, z1)
     add_polygon(polygons, x, y, z1, x, y, z, x1, y, z)
-    #bottom
+    #bottomtom
     add_polygon(polygons, x, y1, z, x1, y1, z1, x1, y1, z)
     add_polygon(polygons, x, y1, z, x, y1, z1, x1, y1, z1)
 
